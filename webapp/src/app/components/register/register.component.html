@@ -1,0 +1,31 @@
+<!-- registration.component.html -->
+<div class="registration-container">
+  <mat-card class="registration-card">
+    <h2 class="title">User Registration</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter your name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter your email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" placeholder="Enter password" type="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="mobileNumber" placeholder="Enter mobile number" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">
+        Register
+      </button>
+    </form>
+  </mat-card>
+</div>

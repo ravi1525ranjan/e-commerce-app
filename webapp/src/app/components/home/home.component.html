@@ -1,0 +1,57 @@
+<!-- Carousel Section -->
+<!-- <div class="carousel-container"> -->
+  <!-- <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide>Slide 1</ng-template>  
+    <ng-template carouselSlide>Slide 2</ng-template>  
+    <ng-template carouselSlide>Slide 3</ng-template>  
+  </owl-carousel-o> -->
+<!-- </div> -->
+
+<!-- Home Page: New Arrivals and Featured Products -->
+<div class="product-section">
+  <h2>🆕 New Arrivals</h2>
+  <div class="product-grid">
+    <ng-container *ngFor="let product of newProductList">
+      <!-- <mat-card class="product-card">
+        <img mat-card-image [src]="(product?.images?.length ? product.images[0] : 'assets/placeholder.jpg')">
+        <mat-card-content>
+          <p>{{ product.name }}</p>
+          <p class="short-desc">{{ product.shortDescription }}</p>
+          <p class="price">
+            ₹{{ product.price }}
+            <span class="discount">-{{ product.discount }}%</span>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">View</button>
+          <button mat-button>Add to Cart</button>
+        </mat-card-actions>
+      </mat-card> -->
+    <app-product-card [product]="product"></app-product-card>
+    </ng-container>
+  </div>
+</div>
+
+<div class="product-section">
+  <h2>🌟 Featured Products</h2>
+  <div class="product-grid">
+    <ng-container *ngFor="let product of featuredProductList">
+      <!-- <mat-card class="product-card">
+        <img mat-card-image [src]="(product?.images?.length ? product.images[0] : 'assets/placeholder.jpg')">
+        <mat-card-content>
+          <p>{{ product.name }}</p>
+          <p class="short-desc">{{ product.shortDescription }}</p>
+          <p class="price">
+            ₹{{ product.price }}
+            <span class="discount">-{{ product.discount }}%</span>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">View</button>
+          <button mat-button>Add to Cart</button>
+        </mat-card-actions>
+      </mat-card> -->
+        <app-product-card [product]="product"></app-product-card>
+    </ng-container>
+  </div>
+</div>

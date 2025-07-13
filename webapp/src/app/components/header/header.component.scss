@@ -1,0 +1,46 @@
+.top-toolbar {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 1rem;
+  background-color: blueviolet;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.search-field {
+  width: 300px;
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+  // margin-left: 10px;
+  padding-top: 20px;
+  // Reset any margin/padding that causes layout breaks
+  .mat-form-field-wrapper,
+  .mat-form-field-flex,
+  .mat-form-field-infix {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-input-element {
+    height: 10px;
+    padding: 0 8px;
+  }
+
+  .mat-icon-button {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

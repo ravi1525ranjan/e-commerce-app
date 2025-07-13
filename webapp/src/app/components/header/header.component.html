@@ -1,0 +1,50 @@
+<mat-toolbar color="primary" class="top-toolbar">
+  <span class="logo" (click)="redirectToHomePage()">🛍️ Grocery Mart</span>
+
+  <span class="spacer"></span>
+
+  <mat-form-field class="search-field">
+    <mat-label>Search</mat-label>
+    <input matInput [(ngModel)]="searchTerm" placeholder="Search for products..." (keyup.enter)="onSearch($event)" />
+    <!-- <button mat-icon-button matSuffix (click)="onClick($event)">
+      <mat-icon>search</mat-icon>
+    </button> -->
+  </mat-form-field>
+
+  <span class="spacer"></span>
+
+  <!-- Admin Dashboard Menu -->
+  <ng-container *ngIf="isAdmin()">
+    <button mat-button [matMenuTriggerFor]="adminMenu">Admin Dashboard</button>
+    <mat-menu #adminMenu="matMenu">
+      <button mat-menu-item [routerLink]="['/admin/users']">Manage Users</button>
+      <button mat-menu-item [routerLink]="['/admin/categories']">Manage Categories</button>
+      <button mat-menu-item [routerLink]="['/admin/brands']">Manage Brands</button>
+      <button mat-menu-item [routerLink]="['/admin/products']">Manage Products</button>
+    </mat-menu>
+  </ng-container>
+
+  <!-- User Menu-->
+  <ng-container>
+    @if (userName && isLoggedIn()) {
+          <button mat-button [matMenuTriggerFor]="userMenu">Hello {{(userName())}}</button>
+    }
+    @else {
+                <button mat-button [matMenuTriggerFor]="userMenu">User Profile</button>
+
+    }
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item [routerLink]="['register']">Sign In</button>
+      <button mat-menu-item [routerLink]="['login']">Log In</button>
+      <button mat-menu-item (click)="logoutUser()">Log Out</button>
+    </mat-menu>
+  </ng-container>
+</mat-toolbar>
+
+<!-- Bottom Header (Categories) -->
+<mat-toolbar color="accent" class="bottom-toolbar">
+  @if (isLoggedIn()) {
+      <button mat-button *ngFor="let category of categoriesList()" (click)="getAllProductsOfCategory(category._id)">{{
+    category.name }}</button>
+  }
+</mat-toolbar>

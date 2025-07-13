@@ -1,0 +1,15 @@
+      <mat-card class="product-card" (click)="onCardClick(product._id)">
+        <img mat-card-image [src]="(product.images.length ? product.images[0] : 'assets/placeholder.jpg')">
+        <mat-card-content>
+          <p>{{ product.name }}</p>
+          <p class="short-desc">{{ product.shortDescription }}</p>
+          <p class="price">
+            ₹{{ product.price }}
+            <span class="discount">-{{ product.discount }}%</span>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">View</button>
+          <button mat-button>Add to Cart</button>
+        </mat-card-actions>
+      </mat-card>

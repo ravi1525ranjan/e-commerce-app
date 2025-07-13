@@ -1,0 +1,66 @@
+<div class="product-listing-container">
+  <!-- Filter Sidebar -->
+<aside class="filter-section">
+  <h6 style="text-align: center;">Filters</h6>
+
+  <mat-accordion>
+
+    <!-- Brand Filter -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Brand</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-selection-list [(ngModel)]="selectedBrands">
+        <mat-list-option *ngFor="let brand of brands" [value]="brand">
+          {{ brand }}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-expansion-panel>
+
+    <!-- Price Filter -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Price</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="price-range">
+        <mat-form-field>
+          <mat-label>Min</mat-label>
+          <input matInput type="number" [(ngModel)]="priceMin" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Max</mat-label>
+          <input matInput type="number" [(ngModel)]="priceMax" />
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Rating Filter -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Ratings</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox *ngFor="let rating of ratings" [(ngModel)]="rating.selected">
+        {{ rating.value }} Stars & Up
+      </mat-checkbox>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+  <button style="margin-left: 45px;" mat-raised-button color="primary" (click)="applyFilters()">Apply Filters</button>
+</aside>
+
+
+  <!-- Product Listing -->
+  <section class="product-section">
+    <div class="product-grid">
+    @if (products && products.length > 0) {
+        <ng-container *ngFor="let product of products">
+            <app-product-card [product]="product"></app-product-card>
+        </ng-container>
+    }
+    @else {
+        <p>No data found</p>
+    }
+    </div>
+  </section>
+</div>

@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'tailwind';
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  display: none !important;
+}
+

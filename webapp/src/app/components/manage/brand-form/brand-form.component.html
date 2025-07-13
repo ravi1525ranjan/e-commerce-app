@@ -1,0 +1,23 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
+  <form #form="ngForm">
+    <mat-form-field appearance="fill" class="w-full">
+      @if (brandId) {
+      <mat-label>Edit Brand</mat-label>
+      } @else {
+      <mat-label>Add New Brand</mat-label>
+      }
+      <input matInput name="brandName" [(ngModel)]="brandName" required placeholder="sports..." />
+    </mat-form-field>
+    @if (brandId) {
+    <button class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      [disabled]="!brandName" (click)="editBrand()">
+      Edit Brand
+    </button>
+    } @else {
+    <button class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      [disabled]="!brandName" (click)="addBrand()">
+      Add Brand
+    </button>
+    }
+  </form>
+</div>

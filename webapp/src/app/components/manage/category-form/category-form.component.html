@@ -1,0 +1,32 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
+  <form #form="ngForm">
+    <mat-form-field appearance="fill" class="w-full">
+        @if (categoryId) {
+            <mat-label>Edit Category</mat-label>
+        } @else {
+            <mat-label>Add New Category</mat-label>
+        }
+      <input
+        matInput
+        name="categoryName"
+        [(ngModel)]="categoryName"
+        required
+        placeholder="sports..."/>
+    </mat-form-field>
+            @if (categoryId) {
+            <button
+      class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      [disabled]="!categoryName"
+      (click)="editCategory()">
+      Edit Category
+    </button>
+        } @else {
+              <button
+      class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      [disabled]="!categoryName"
+      (click)="addCategory()">
+      Add Category
+    </button>
+        }
+  </form>
+</div>
