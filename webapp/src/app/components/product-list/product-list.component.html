@@ -11,8 +11,8 @@
         <mat-panel-title>Brand</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-selection-list [(ngModel)]="selectedBrands">
-        <mat-list-option *ngFor="let brand of brands" [value]="brand">
-          {{ brand }}
+        <mat-list-option *ngFor="let brand of brands" [value]="brand" (selectedChange)="getBrandMatchedProduct(brand._id)">
+          {{ brand?.name }}
         </mat-list-option>
       </mat-selection-list>
     </mat-expansion-panel>

@@ -11,6 +11,7 @@ import { CustomerService } from '../../services/customer.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ActivatedRoute } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BrandService } from '../../services/brand.service';
 
 @Component({
   selector: 'app-product-list',
@@ -24,26 +25,26 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatListModule,
     MatButtonModule,
     ProductCardComponent,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  styleUrl: './product-list.component.scss',
 })
 export class ProductListComponent {
   products: ProductInterface[] = [];
   filteredProducts: ProductInterface[] = [];
-  brands = ['Apple', 'Samsung', 'OnePlus', 'Sony'];
+  brands: any[] = [];
   selectedBrands: string[] = [];
-  customerService = inject(CustomerService)
+  customerService = inject(CustomerService);
   activatedRoute = inject(ActivatedRoute);
-  searchTerm : string = '';
-  categoryId : string = ''
-  brandId : string = ''
-  sortBy : string = ''
-  sortOrder : number = -1
-  pageSize: number = 50
-  page:number =1
-
+  brandService = inject(BrandService);
+  searchTerm: string = '';
+  categoryId: string = '';
+  brandId: string = '';
+  sortBy: string = '';
+  sortOrder: number = -1;
+  pageSize: number = 50;
+  page: number = 1;
 
   priceMin: number = 0;
   priceMax: number = 100000;
@@ -52,49 +53,86 @@ export class ProductListComponent {
     { value: 4, selected: false },
     { value: 3, selected: false },
     { value: 2, selected: false },
-    { value: 1, selected: false }
+    { value: 1, selected: false },
   ];
+  brandList: any[] = [];
 
-  constructor(){
-      this.activatedRoute.queryParams.subscribe((params) => {
+  constructor() {
+    this.activatedRoute.queryParams.subscribe((params) => {
       this.brandId = params['brand'] ? params['brand'] : '';
-      this.categoryId= params['category'] ? params['category'] : '';
-      console.log("categoryId",this.categoryId)
+      this.categoryId = params['category'] ? params['category'] : '';
+      console.log('categoryId', this.categoryId);
       this.searchTerm = params['q'] ? params['q'] : '';
-      this.getProductListBySearch()
-
+      this.getProductListBySearch();
     });
   }
 
-  ngOnInit(){
-    this.getProductListBySearch()
+  ngOnInit() {
+    this.getProductListBySearch();
+    this.getAllBrands();
   }
 
-    applyFilters() {
-    this.filteredProducts = this.products.filter((p:any) => {
-      const matchesBrand = this.selectedBrands.length ? this.selectedBrands.includes(p.brand) : true;
+  applyFilters() {
+    this.filteredProducts = this.products.filter((p: any) => {
+      const matchesBrand = this.selectedBrands.length
+        ? this.selectedBrands.includes(p.brand)
+        : true;
       const matchesPrice = p.price >= this.priceMin && p.price <= this.priceMax;
-      const matchesRating = this.ratings.some(r => r.selected && p.rating >= r.value) || this.ratings.every(r => !r.selected);
+      const matchesRating =
+        this.ratings.some((r) => r.selected && p.rating >= r.value) ||
+        this.ratings.every((r) => !r.selected);
       return matchesBrand && matchesPrice && matchesRating;
     });
   }
 
-  getProductListBySearch(){
-    this.products = []
-    this.filteredProducts = []
-        this.customerService
-          .getProductList(
-            this.searchTerm,
-            this.categoryId,
-            this.brandId,
-            this.sortBy,
-            this.sortOrder,
-            this.pageSize,
-            this.page
-          )
-          .subscribe((data: any) => {
-            this.products = data.productList;
-            this.filteredProducts = data.productList;
-          });
+  getProductListBySearch() {
+    this.products = [];
+    this.filteredProducts = [];
+    this.customerService
+      .getProductList(
+        this.searchTerm,
+        this.categoryId,
+        this.brandId,
+        this.sortBy,
+        this.sortOrder,
+        this.pageSize,
+        this.page
+      )
+      .subscribe((data: any) => {
+        console.log('products -->', data);
+        this.products = data.productList;
+        // console.log('products with brands-->', this.products);
+        this.filteredProducts = data.productList;
+        this.getBrandsBasedOnCategoryId()
+      });
+  }
+
+  getAllBrands() {
+    // Logic to fetch brands from a service
+    this.brandService.getBrands().subscribe((data: any) => {
+      this.brands = data.brands; // Assuming the API returns an object with a 'categories' array
+      this.brandList = data.brands;
+      console.log('brands Data: ', this.brands);
+    });
+  }
+
+  getBrandsBasedOnCategoryId() {
+    this.brands = [];
+    // Create a map for quick lookup
+    const brandMap = new Map(this.brandList.map((brand) => [brand._id, brand.name]));
+
+    // Match products with brand names
+    this.brands = this.products.map((product) => ({
+      ...product,
+      name: brandMap.get(product.brandId) || 'Unknown',
+    }));
+
+    console.log("this.brands", this.brands);
+  }
+
+  getBrandMatchedProduct(brandId:any){
+    console.log("brandId", brandId)
+    this.products = this.products
+  .filter((res: any) => res._id === brandId)
   }
 }

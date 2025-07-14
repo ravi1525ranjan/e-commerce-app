@@ -26,7 +26,7 @@
 
   <!-- User Menu-->
   <ng-container>
-    @if (userName && isLoggedIn()) {
+    @if (isLoggedIn()) {
           <button mat-button [matMenuTriggerFor]="userMenu">Hello {{(userName())}}</button>
     }
     @else {

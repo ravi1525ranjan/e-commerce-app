@@ -13,6 +13,6 @@ router.get('/features-products', auth.authenticateUser, Product.getFeaturedProdu
     res.status(200).json({ message: 'Customer route is working' });
 });
 
-router.get('/products-by-query', Product.getProductBysearch);
+router.get('/products-by-query',auth.authenticateUser, Product.getProductBysearch);
 
 module.exports = router;

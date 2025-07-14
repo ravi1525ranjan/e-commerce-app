@@ -7,7 +7,7 @@ const auth = require('../middleware/user-auth')
 router.post('/create-product',auth.authenticateUser, auth.isAdmin, Product.createProduct);
 router.get('/get-products', Product.getProducts);
 // router.get('/products-by-query',auth.authenticateUser,Product.getProductBysearch)
-router.get('/get-product/:id', Product.getProductById);
+router.get('/get-product/:id',auth.authenticateUser, Product.getProductById);
 router.put('/update-product/:id',auth.authenticateUser, auth.isAdmin, Product.updateProduct);
 router.delete('/delete-product/:id',auth.authenticateUser, auth.isAdmin, Product.deleteProduct);
 module.exports = router;
