@@ -44,4 +44,11 @@
       gap: 1rem;
     }
   }
+
+  .pagination{
+    display: flex;
+    align-items:end;
+    gap:5px;
+    margin-top: 700px;
+  }
 }

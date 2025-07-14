@@ -135,4 +135,8 @@ export class ProductListComponent {
     this.products = this.products
   .filter((res: any) => res._id === brandId)
   }
+
+  pageChange(page:any){
+    this.page = page
+  }
 }

@@ -1,1 +1,35 @@
-<p>product-details works!</p>
+<div class="product-page">
+  <div class="product-wrapper">
+    <div class="image-box">
+      <ng-image-slider [images]="carouselImages" [infinite]="true" [imageSize]="{width: 300, height: 300}"></ng-image-slider>
+    </div>
+
+    <div class="details-box">
+      <h2>{{ product?.name }}</h2>
+     <div class="price-section">
+  <span class="original-price">₹{{ product.price }}</span>
+    <span class="discount">({{ product.discount }}% OFF)</span>
+  <span class="discounted-price">₹{{ discountedPrice }}</span>
+</div>
+      <p class="desc">{{ product?.shortDescription}}</p>
+
+      <div class="btn-group">
+        <button mat-raised-button color="primary">Buy Now</button>
+        <button mat-raised-button color="accent">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <mat-tab-group class="tabs">
+    <mat-tab label="Details">
+      <div class="tab-content">{{ product?.description}}</div>
+    </mat-tab>
+    <mat-tab label="Reviews">
+      <!-- <div class="tab-content">
+        <div *ngFor="let review of product.reviews" class="review">
+          <strong>{{ review.user }}</strong>: {{ review.comment }}
+        </div>
+      </div> -->
+    </mat-tab>
+  </mat-tab-group>
+</div>

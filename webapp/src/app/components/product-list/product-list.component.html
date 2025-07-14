@@ -63,4 +63,9 @@
     }
     </div>
   </section>
+  <!--Pagination-->
+  <section class="pagination">
+    <button mat-raised-button color="primary" [disabled]="page ==1" (click)="pageChange(page-1)">Previous</button>
+    <button mat-raised-button color="primary" (click)="pageChange(page+1)">Next</button>
+  </section>
 </div>
